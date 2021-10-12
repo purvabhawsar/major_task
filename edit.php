@@ -1,12 +1,15 @@
 <?php
  session_start();
-$p=$_SESSION["database"];
+ $conn=mysqli_connect("localhost","root","12345678");
+ $p=$_SESSION["database"];
 echo $p;
-
-
+mysqli_select_db($conn,$p);
+$x=$_GET["eid"];
+$que="SELECT * FROM page_table WHERE id='$x'";
+$result=mysqli_query($conn,$que);
+ $obj=mysqli_fetch_array($result);
 
 ?>
-
 
  <!DOCTYPE html>
 <html lang="en">
@@ -84,18 +87,23 @@ textarea#editor1 {
   float: right;
   margin-top: 0px ;
 }
+.container{
+  width: 70%;
+}
 </style>
 </head>
 <body>
 
 <div class="container m-5">
-  <div class="sbtn">
-    <a href="showlist.php" type="button"class="btn btn-info">Show my List</a>
-  </div>
-  <h2>Create Your Pages</h2>
   
-  <form action="showpages.php" method="post" onsubmit="return validate()">
+  <h2>Edit Your Pages</h2>
+  
+  
+  <form action="update.php" method="post" onsubmit="return validate()">
+
+    <input type="text" name="eid" value="<?php echo $obj["id"];?>">
   	 <div class="dropdown">
+
  
     Status
   </button>
@@ -111,13 +119,13 @@ textarea#editor1 {
     
     <div class="form-group">
       <label for="page">Page Name:</label>
-      <input type="text" class="form-control" id="page" placeholder="Enter page name" name="page">
+      <input type="text" class="form-control" id="page" placeholder="Enter page name" name="page" value="<?php echo $obj['pagename'];?>">
     <span id="page_msg" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-      <label for="email">Content:</label>
-      <textarea name="editor" id="editor"></textarea>
+      <label for="content">Content:</label>
+      <textarea name="editor" id="editor" value="<?php echo $obj['content'];?>"></textarea>
     <span id="editor_msg" class="text-danger"></span>
     </div>
 

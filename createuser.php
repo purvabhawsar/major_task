@@ -6,6 +6,10 @@ $p=$_SESSION["database"];
 
 ?>
 
+
+
+
+
 <script type="text/javascript">
   
 function validate(){
@@ -80,7 +84,7 @@ return check;
 <div class="container">
   <h2>Create Account</h2>
   <form action="user.php" method="post" onsubmit="return validate()">
-  	 <div class="form-group">
+     <div class="form-group">
       <label for="email">Fullname:</label>
       <input type="text" class="form-control" id="fname" placeholder="Enter Fullname" name="fname">
     <span id="name_msg"></span>
